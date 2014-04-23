@@ -1098,8 +1098,9 @@ static unsigned int GetNextTargetRequiredV2(const CBlockIndex* pindexLast, bool 
 
 unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake)
 {
-    if (pindexLast->nHeight < 38424)
-        return GetNextTargetRequiredV1(pindexLast, fProofOfStake);
+    if (pindexLast->nHeight < LAST_POW_BLOCK/3*2)
+        return bnProofOfWorkLimit.GetCompact(); //Premine
+        //return GetNextTargetRequiredV1(pindexLast, fProofOfStake);
     else
         return GetNextTargetRequiredV2(pindexLast, fProofOfStake);
 }
