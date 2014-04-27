@@ -557,6 +557,13 @@ void StakeMiner(CWallet *pwallet)
             }
         }
 
+        if( nBestHeight < LAST_POW_BLOCK ){
+            MilliSleep(60000);
+            continue;
+        }
+
+
+
         //
         // Create new block
         //
@@ -564,6 +571,7 @@ void StakeMiner(CWallet *pwallet)
         auto_ptr<CBlock> pblock(CreateNewBlock(pwallet, true, &nFees));
         if (!pblock.get())
             return;
+
 
         // Trying to sign a block
         if (pblock->SignBlock(*pwallet, nFees))
